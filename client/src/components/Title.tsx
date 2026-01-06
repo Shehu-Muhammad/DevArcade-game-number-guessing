@@ -9,7 +9,7 @@ interface Props {
 
 const Title = ({ title, tag }: Props) => {
   const Tag = tag as keyof JSX.IntrinsicElements;
-  return <Tag>{title}</Tag>;
+  return <Tag className='mx-3'>{title}</Tag>;
 };
 
 export default Title;

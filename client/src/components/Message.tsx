@@ -3,7 +3,7 @@ interface Props {
 }
 
 const Message = ({ message }: Props) => {
-  return <p>{message}</p>;
+  return <p className='mx-3'>{message}</p>;
 };
 
 export default Message;
