@@ -6,8 +6,8 @@ const List = ({ instructions }: Props) => {
   return (
     <>
       <ul>
-        {instructions.map((instruction) => (
-          <li>{instruction}</li>
+        {instructions.map((instruction, index) => (
+          <li key={index}>{instruction}</li>
         ))}
       </ul>
     </>
