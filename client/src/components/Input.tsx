@@ -1,5 +1,5 @@
 interface Props {
-  type: string;
+  type: string | number;
   value?: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
