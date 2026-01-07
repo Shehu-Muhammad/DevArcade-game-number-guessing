@@ -16,7 +16,7 @@ function App() {
   ];
 
   const [range, setRange] = useState({ lower: 0, upper: 10 });
-  const [guess, setGuess] = useState<number | null>(null);
+  const [guess, setGuess] = useState<number>(0);
   const [target, setTargetNumber] = useState<number | null>(null);
   const [message, setMessage] = useState('');
 
@@ -27,7 +27,7 @@ function App() {
     setMessage(
       `New target generated between ${range.lower} and ${range.upper}`
     );
-    setGuess(null); // reset guess
+    setGuess(0); // reset guess
   };
 
   const checkGuess = () => {
@@ -36,9 +36,9 @@ function App() {
     if (guess < range.lower || guess > range.upper) {
       setMessage(`Your guess is out of bounds (${range.lower}-${range.upper})`);
     } else if (target !== null && guess < target) {
-      setMessage('Too low! Try again.');
+      setMessage(`Too low! Try again. The number is higher than ${guess}`);
     } else if (target !== null && guess > target) {
-      setMessage('Too high! Try again.');
+      setMessage(`Too high! Try again. The number is lower than ${guess}`);
     } else if (target !== null && guess === target) {
       setMessage(`🎉 Congratulations! You guessed the right number: ${target}`);
     }
@@ -47,7 +47,7 @@ function App() {
   return (
     <>
       <Title tag='h1' title='Number Guessing Game' />
-      <Message message={message || 'Guess a number'} />
+      <Message message={message || 'Click New Target to begin playing'} />
 
       <label className='mx-3'>Lower Bound:</label>
       <Input
