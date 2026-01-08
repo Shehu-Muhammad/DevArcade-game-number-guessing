@@ -1,5 +1,5 @@
 interface Props {
-  type: string | number;
+  type: string;
   value?: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
@@ -9,9 +9,8 @@ const Input = ({ type, value, onChange, placeholder }: Props) => {
   return (
     <input
       type={type}
-      value={value}
+      value={value ?? ''}
       onChange={onChange}
-      className='mx-3'
       placeholder={placeholder}
     />
   );

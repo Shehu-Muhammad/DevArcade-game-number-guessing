@@ -1,14 +1,17 @@
 interface Props {
   name: string;
+  className?: string;
   handleClick: () => void;
+  disabled?: boolean;
 }
 
-const Button = ({ name, handleClick }: Props) => {
+const Button = ({ name, className, handleClick, disabled }: Props) => {
   return (
     <button
-      className='btn btn-primary mx-2'
+      className={className ?? 'btn btn-primary'}
       type='submit'
       onClick={handleClick}
+      disabled={disabled}
     >
       {name}
     </button>

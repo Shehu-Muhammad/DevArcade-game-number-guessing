@@ -30,9 +30,16 @@ function App() {
     setGuess(0); // reset guess
   };
 
-  const checkGuess = () => {
-    if (guess === null) return;
+  if (range.lower >= range.upper) {
+    setMessage('Lower bound must be less than upper bound');
+    return;
+  }
 
+  const checkGuess = () => {
+    if (target === null) {
+      setMessage('Please click "New Target" before guessing');
+      return;
+    }
     if (guess < range.lower || guess > range.upper) {
       setMessage(`Your guess is out of bounds (${range.lower}-${range.upper})`);
     } else if (target !== null && guess < target) {
@@ -40,42 +47,85 @@ function App() {
     } else if (target !== null && guess > target) {
       setMessage(`Too high! Try again. The number is lower than ${guess}`);
     } else if (target !== null && guess === target) {
-      setMessage(`🎉 Congratulations! You guessed the right number: ${target}`);
+      setMessage(
+        `🎉 Congratulations! You guessed the right number. It is ${target}`
+      );
     }
   };
 
+  const getAlertClass = () => {
+    if (message.includes('Congratulations')) return 'alert-success';
+    if (message.includes('low')) return 'alert-primary';
+    if (message.includes('high')) return 'alert-danger';
+    if (message.includes('out of bounds')) return 'alert-warning';
+    return 'alert-secondary';
+  };
+
   return (
-    <>
-      <Title tag='h1' title='Number Guessing Game' />
-      <Message message={message || 'Click New Target to begin playing'} />
+    <div className='container min-vh-100 d-flex justify-content-center align-items-center'>
+      <div
+        className='card shadow-sm p-4'
+        style={{ maxWidth: '420px', width: '100%' }}
+      >
+        <Title tag='h1' title='Number Guessing Game' />
+        <div className={`alert ${getAlertClass()} text-center`}>
+          <Message message={message || 'Click New Target to begin playing'} />
+        </div>
 
-      <label className='mx-3'>Lower Bound:</label>
-      <Input
-        type='number'
-        value={range.lower}
-        onChange={(e) => setRange({ ...range, lower: Number(e.target.value) })}
-      />
+        <div className='mb-3'>
+          <label className='mx-2 form-label'>Lower:</label>
+          <Input
+            type='number'
+            value={range.lower}
+            onChange={(e) =>
+              setRange({ ...range, lower: Number(e.target.value) })
+            }
+          />
+        </div>
 
-      <label className='mx-3'>Upper Bound:</label>
-      <Input
-        type='number'
-        value={range.upper}
-        onChange={(e) => setRange({ ...range, upper: Number(e.target.value) })}
-      />
+        <div className='mb-3'>
+          <label className='mx-2 form-label'>Upper:</label>
+          <Input
+            type='number'
+            value={range.upper}
+            onChange={(e) =>
+              setRange({ ...range, upper: Number(e.target.value) })
+            }
+          />
+        </div>
 
-      <Button name='New Target' handleClick={generateTargetNumber} />
+        <Button
+          name='New Target'
+          handleClick={generateTargetNumber}
+          className='btn btn-primary w-100 mb-3'
+        />
 
-      <label className='mx-3'>Your Guess:</label>
-      <Input
-        type='number'
-        value={guess ?? ''}
-        onChange={(e) => setGuess(Number(e.target.value))}
-      />
-      <Button name='Guess' handleClick={checkGuess} />
+        <div className='mb-3 '>
+          <label className='mx-2 form-label'>Your Guess:</label>
+          <Input
+            type='number'
+            value={guess ?? ''}
+            onChange={(e) =>
+              setGuess(
+                Math.min(
+                  range.upper,
+                  Math.max(range.lower, Number(e.target.value))
+                )
+              )
+            }
+          />
+        </div>
+        <Button
+          name='Guess'
+          handleClick={checkGuess}
+          className='btn btn-success w-100'
+          disabled={target === null}
+        />
 
-      <Title tag='h3' title='Instructions' />
-      <List instructions={gameInstructions} />
-    </>
+        <Title tag='h3' title='Instructions' />
+        <List instructions={gameInstructions} />
+      </div>
+    </div>
   );
 }
 
