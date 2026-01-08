@@ -55,8 +55,8 @@ function App() {
 
   const getAlertClass = () => {
     if (message.includes('Congratulations')) return 'alert-success';
-    if (message.includes('low')) return 'alert-primary';
-    if (message.includes('high')) return 'alert-danger';
+    if (message.includes('Too low')) return 'alert-primary';
+    if (message.includes('Too high')) return 'alert-danger';
     if (message.includes('out of bounds')) return 'alert-warning';
     return 'alert-secondary';
   };
@@ -105,14 +105,7 @@ function App() {
           <Input
             type='number'
             value={guess ?? ''}
-            onChange={(e) =>
-              setGuess(
-                Math.min(
-                  range.upper,
-                  Math.max(range.lower, Number(e.target.value))
-                )
-              )
-            }
+            onChange={(e) => setGuess(Number(e.target.value))}
           />
         </div>
         <Button
