@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dev-arcade-game-number-guessing-8mfvdrrba.vercel.app/Sitemap.xml
