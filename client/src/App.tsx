@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import confetti from '@hiseb/confetti';
 import './App.css';
 import Button from './components/Button';
 import Input from './components/Input';
@@ -30,10 +31,23 @@ function App() {
     setGuess(0); // reset guess
   };
 
-  if (range.lower >= range.upper) {
-    setMessage('Lower bound must be less than upper bound');
-    return;
-  }
+  useEffect(() => {
+    if (range.lower >= range.upper) {
+      setMessage('Lower bound must be less than upper bound');
+    }
+  }, [range]);
+
+  const fireConfetti = () => {
+    const isMobile = window.innerWidth < 768;
+
+    confetti({
+      position: { x: window.innerWidth / 2, y: 0 },
+      count: isMobile ? 300 : 600,
+      size: 1,
+      velocity: 200,
+      fade: false,
+    });
+  };
 
   const checkGuess = () => {
     if (target === null) {
@@ -50,6 +64,7 @@ function App() {
       setMessage(
         `🎉 Congratulations! You guessed the right number. It is ${target}`,
       );
+      fireConfetti();
     }
   };
 
