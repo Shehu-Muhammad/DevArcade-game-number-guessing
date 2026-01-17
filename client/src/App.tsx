@@ -25,7 +25,7 @@ function App() {
       Math.floor(Math.random() * (range.upper - range.lower + 1)) + range.lower;
     setTargetNumber(newTarget);
     setMessage(
-      `New target generated between ${range.lower} and ${range.upper}`
+      `New target generated between ${range.lower} and ${range.upper}`,
     );
     setGuess(0); // reset guess
   };
@@ -48,7 +48,7 @@ function App() {
       setMessage(`Too high! Try again. The number is lower than ${guess}`);
     } else if (target !== null && guess === target) {
       setMessage(
-        `🎉 Congratulations! You guessed the right number. It is ${target}`
+        `🎉 Congratulations! You guessed the right number. It is ${target}`,
       );
     }
   };
@@ -77,9 +77,13 @@ function App() {
           <Input
             type='number'
             value={range.lower}
-            onChange={(e) =>
-              setRange({ ...range, lower: Number(e.target.value) })
-            }
+            onChange={(e) => {
+              if (Number(e.target.value) >= range.upper) {
+                setRange({ ...range, lower: range.upper - 1 });
+              } else {
+                setRange({ ...range, lower: Number(e.target.value) });
+              }
+            }}
           />
         </div>
 
@@ -88,9 +92,13 @@ function App() {
           <Input
             type='number'
             value={range.upper}
-            onChange={(e) =>
-              setRange({ ...range, upper: Number(e.target.value) })
-            }
+            onChange={(e) => {
+              if (Number(e.target.value) <= range.lower) {
+                setRange({ ...range, upper: range.lower + 1 });
+              } else {
+                setRange({ ...range, upper: Number(e.target.value) });
+              }
+            }}
           />
         </div>
 
