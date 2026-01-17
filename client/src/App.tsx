@@ -78,7 +78,7 @@ function App() {
 
   return (
     <div className='container min-vh-100 d-flex justify-content-center align-items-center'>
-      <div
+      <main
         className='card shadow-sm p-4'
         style={{ maxWidth: '420px', width: '100%' }}
       >
@@ -144,9 +144,9 @@ function App() {
           disabled={target === null}
         />
 
-        <Title tag='h3' title='Instructions' />
+        <Title tag='h2' title='Instructions' />
         <List instructions={gameInstructions} />
-      </div>
+      </main>
     </div>
   );
 }
