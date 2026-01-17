@@ -88,33 +88,37 @@ function App() {
         </div>
 
         <div className='mb-3'>
-          <label className='mx-2 form-label'>Lower:</label>
-          <Input
-            type='number'
-            value={range.lower}
-            onChange={(e) => {
-              if (Number(e.target.value) >= range.upper) {
-                setRange({ ...range, lower: range.upper - 1 });
-              } else {
-                setRange({ ...range, lower: Number(e.target.value) });
-              }
-            }}
-          />
+          <label className='mx-2 form-label'>
+            Lower:
+            <Input
+              type='number'
+              value={range.lower}
+              onChange={(e) => {
+                if (Number(e.target.value) >= range.upper) {
+                  setRange({ ...range, lower: range.upper - 1 });
+                } else {
+                  setRange({ ...range, lower: Number(e.target.value) });
+                }
+              }}
+            />
+          </label>
         </div>
 
         <div className='mb-3'>
-          <label className='mx-2 form-label'>Upper:</label>
-          <Input
-            type='number'
-            value={range.upper}
-            onChange={(e) => {
-              if (Number(e.target.value) <= range.lower) {
-                setRange({ ...range, upper: range.lower + 1 });
-              } else {
-                setRange({ ...range, upper: Number(e.target.value) });
-              }
-            }}
-          />
+          <label className='mx-2 form-label'>
+            Upper:
+            <Input
+              type='number'
+              value={range.upper}
+              onChange={(e) => {
+                if (Number(e.target.value) <= range.lower) {
+                  setRange({ ...range, upper: range.lower + 1 });
+                } else {
+                  setRange({ ...range, upper: Number(e.target.value) });
+                }
+              }}
+            />
+          </label>
         </div>
 
         <Button
@@ -124,12 +128,14 @@ function App() {
         />
 
         <div className='mb-3 '>
-          <label className='mx-2 form-label'>Your Guess:</label>
-          <Input
-            type='number'
-            value={guess ?? ''}
-            onChange={(e) => setGuess(Number(e.target.value))}
-          />
+          <label className='mx-2 form-label'>
+            Your Guess:
+            <Input
+              type='number'
+              value={guess ?? ''}
+              onChange={(e) => setGuess(Number(e.target.value))}
+            />
+          </label>
         </div>
         <Button
           name='Guess'
